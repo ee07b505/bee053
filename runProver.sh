@@ -2,9 +2,6 @@
 Workspace=/root/aleo
 ScreenName=aleo
 KeyFile="/root/my_aleo_key.txt"
-
-
-
 has_private_key(){
 	PrivateKey=$(cat ${KeyFile} | grep "Private Key" | awk '{print $3}')	
 	if [ -z "${PrivateKey}" ]
@@ -16,9 +13,6 @@ has_private_key(){
 		return 0
 	fi
 }
-
-
-
 generate_key(){
 	echo "开始生成账户密钥"
 	snarkos account new > ${KeyFile}
@@ -33,9 +27,6 @@ generate_key(){
 	echo "export PROVER_PRIVATE_KEY=$PrivateKey" >> /etc/profile
 	source /etc/profile
 }
-
-
-
 run_prover(){
 	source $HOME/.cargo/env
 	source /etc/profile
@@ -55,8 +46,5 @@ run_prover(){
         screen -x -S ${ScreenName} -p 0 -X stuff "${cmd}"
         screen -x -S ${ScreenName} -p 0 -X stuff $'\n'
         echo "client节点已在screen中启动，可执行screen -D -r aleo 来查看节点运行情况"
-	
 }
-
-
 run_prover
